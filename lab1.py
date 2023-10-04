@@ -5,7 +5,7 @@ result = 0.0
 useHistory = False
 useRes = False
 decNum = 2
-ch = 'N'
+
 
 while True:
         try:

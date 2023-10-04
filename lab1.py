@@ -1,8 +1,18 @@
 import math
 
+history = [] 
+result = 0.0
+useHistory = False
+useRes = False
+decNum = 2
+ch = 'N'
+
 while True:
         try:
-            num1 = float(input("Enter num1: "))
+            if(useRes and isResultExists): 
+                num1 = result
+            else:
+                num1 = float(input("Enter num1: "))
             operator = input("Choose operation (+, -, *, /, ^, sqrt, %): ")
             if operator not in ('+', '-', '*', '/', '^', 'sqrt', '%'):
                 print("Bad request")
@@ -23,14 +33,24 @@ while True:
                 result = math.sqrt(num1)
             elif operator == '%':
                 result = num1 % num2
+            info = f'{num1}{operator}{num2}={result}'
+            history.append(info)
+            print("Result:", f"{result:.{decNum}f}")
 
-            print("Result:", result)
+            if(useHistory):
+                print("History: ", history)
+            
 
             if input("Contue? (Y/N)? ").lower() != 'y':
                 break
+            if input("Advanced? (Y/N)") == "Y":
+                useRes = input("Default use old result? (Y/N)") == 'Y'
+                useHistory = input("Default use history? (Y/N)") == 'Y'
+                decNum = int(input("Set dec num: "))
+            isResultExists = True
         except ValueError:
             print("Enter float")
         except ZeroDivisionError:
-            print("Zer oDivision")
+            print("Zero Division")
         except Exception as e:
             print("Error:", e)
